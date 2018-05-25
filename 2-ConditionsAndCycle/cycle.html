@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>cycle</title>
+</head>
+
+<body>
+	<div id="app_4">
+		<ol>
+			<li v-for="todo in todos">{{ todo.text }}</li>
+		</ol>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app_4 = new Vue({
+		el: "#app_4",
+		data: {
+			todos: [
+				{ text: 'Learn Java Script' },
+				{ text: 'Learn Vue' }
+			]
+		}
+	})
+</script>
+</html>

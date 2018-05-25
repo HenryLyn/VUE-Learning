@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>conditions</title>
+</head>
+
+<body>
+    <div id="app_3">
+        <p v-if="is_seen">You can see me!</p>
+        <p v-if="not_seen">You can not seen me!</p>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app_3 = new Vue({
+            el: "#app_3",
+        data: {
+            is_seen: true,
+            not_seen: false
+        }
+    })
+</script>
+</html>
