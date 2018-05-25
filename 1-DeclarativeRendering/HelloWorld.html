@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <title>Hello World</title>
+    <body>
+        <div id = "hello_world">
+            {{ message }}
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">  
+        var hello_world = new Vue({
+            el: '#hello_world',
+            data: {
+                message : "Hello World!"
+            }
+        })
+    </script> 
+</html>

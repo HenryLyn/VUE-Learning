@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Element Feature</title>
+</head>
+    <div id="app2">
+        <span v-bind:title="message">
+            Hold your mouse in here for few seconds.
+        </span>
+    </div>
+<body>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app2 = new Vue({
+        el: "#app2", 
+        data: {
+            message: 'page load in: ' + new Date().toLocaleString()
+        }
+    })
+</script>
+</html>
