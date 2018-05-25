@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Componentized Application Construction</title>
+</head>
+<body>
+	<div id="app_7">
+		<ol>
+			<todo-item 
+				v-for="item in groceryList"
+				v-bind:todo="item"
+				v-bind:key="item.id">
+			</todo-item>
+		</ol>
+	</div>
+</body> 
+<template>
+	<ol>
+		<!-- create a todo-item instance --> 
+		<todo-item></todo-item>
+	</ol>
+</template>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	<!-- delare a component, named todo-item -->
+	Vue.component('todo-item', { 
+		// todo-item accept a param called 'prop',
+		// prop lick a user defined feature,
+		// now, this prop is 'todo''
+		props: ['todo'],
+		template: '<li>{{ todo.text }}</li>'
+	})  
+	
+	var app_7 = new Vue({
+		el: "#app_7",
+		data: {
+			groceryList: [
+				{ id: 0, text: 'vegetables' },
+				{ id: 1, text: 'cheese' },
+				{ id: 2, text: 'any foods' }
+			]
+		}
+	})
+</script>
+</html>
