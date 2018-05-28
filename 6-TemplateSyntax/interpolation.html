@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Interpolation</title>
+</head>
+<body>
+	<!-- For mustache practice -->
+	<div id = "app">
+		<span>Message: {{ msg }}</span><br>
+		<span v-once>Once Message: {{ once_msg }}</span>
+	</div>
+	
+	<!-- For feature practice -->
+	<div id="feature_practice">
+		<div v-bind:id="dynamicId">
+			<button v-bind:disabled="isButtonDisabled">Button</button>
+		</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>  
+	// For mustache practice
+	var app = new Vue({
+		el: "#app",
+		data: {
+			msg: 'msg',
+			once_msg: 'once_msg'
+		}
+	})
+	
+	// For feature practice
+	var feature_practice = new Vue({
+		el: "#feature_practice",
+		data: {
+			dynamicId: 'this-is-a-dynamic-id',
+			isButtonDisabled: true
+		}
+	})
+</script>
+</html>

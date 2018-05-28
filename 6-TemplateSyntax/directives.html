@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Directives</title>
+</head>
+<body>
+	<div id="directives">  
+		<!-- For parameters -->
+		<!-- v-bind full syntax -->
+		<a v-bind:href="url">程序员那些事儿</a><br>
+		<!-- v-on full syntax -->
+		<button v-on:click="times = times + 1">Click times: {{ times }}</button><br>  
+		<p>
+		<p>
+		<!-- For abbreviation -->
+		<!-- v-bind abbr syntax -->
+		<a :href="url">程序员那些事儿</a><br>
+		<!-- v-on abbr syntax -->
+		<button @click="times = times + 1">Click times: {{ times }}</button><br>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript"> 
+	// For parameters
+	var directives = new Vue({
+		el: "#directives",
+		data: {
+			url: 'http://www.linhuarui.top',
+			times: 0
+		}
+	})
+</script>
+</html>
