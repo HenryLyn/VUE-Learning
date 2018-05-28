@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Data and Method</title>
+</head>
+<body>
+	<div id="app">
+		<p>{{ foo }}</p>
+		<!-- Click this button will try change the foo value, occur a read only error -->
+		<button v-on:click="foo = 'change foo'">Change foo value</button>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	// create a new data object.
+	var data = {
+		a : 1
+	}
+
+	// add this object into vue instance. 
+	var vm = new Vue({
+		data : data
+	})
+
+	// get the data from instance  
+	// return the source data
+	console.log('vm.a == data.a: ' + (vm.a == data.a))
+
+	// set a new data to instance
+	// and the source data will change as the same
+	// truely like a reference
+	vm.a = 2 // set data to 2  
+	console.log("data.a: " + data.a) // the data will be 2  
+
+	// vice versa  
+	data.a = 3 // set source data to 3  
+	console.log("data.a: " + vm.a) // the data will be 3  
+
+	var obj = {
+		foo : 'bar'
+	}
+
+	Object.freeze(obj)
+
+	var app = new Vue({
+		el : '#app',
+		data : obj
+	})  
+	
+	console.log("vm.$data === data: " + (vm.$data === data))  // true  
+	console.log("app.$el === document.getElementById('app'): " + (app.$el === document.getElementById("app")))
+	
+	// watch is a instance method  
+	vm.$watch('a', function (newValue, oldValue){
+		// do something
+	})
+	
+</script>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Life Cycle</title>
+</head>
+<body>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var create_method = new Vue({
+		data: {
+			a: 1
+		},
+		created: function(){
+			console.log("this message show after create, a is: " + this.a)
+		}
+	})
+</script>
+</html>
