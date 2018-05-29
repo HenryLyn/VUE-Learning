@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Properties</title>
+</head>
+<body>
+	<!-- This is for base example. -->
+	<div id="base_example">
+		<p>Original message: "{{ message }}"</p>
+		<p>Computed reversed message: "{{ reversed_message }}"</p>
+	</div>  
+	<br>
+	<br>
+	<!-- This is for method. -->
+	<div id="method_example">
+		<p>Original message: "{{ message }}"</p>
+		<p>method reversed message: "{{ reversed_message() }}"</p>
+	</div>
+	<br>
+	<!-- This is for watch propertied -->
+	<div id="watch_example">
+		<div>watch example: {{ fullName }}</div>
+	</div>
+	<div id="watch_rb_computed">
+		<div>watch replaced by computed: {{ fullName }}</div>
+	</div>
+	<br>
+	<!-- This is for computed setter. -->
+	<div id="computed_setter">
+		<div>Setter full name: {{ fullName }}</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	// This is for base example.  
+	var base_example = new Vue({
+		el: "#base_example",
+		data: {
+			message: "message!"
+		},
+		computed: {
+			// computed property's getter method.
+			reversed_message: function(){
+				return this.message.split('').reverse().join('')
+			}
+		}
+	})  
+	
+	// This is for method example.
+	var method_example = new Vue({
+		el: "#method_example",
+		data: {
+			message: "message!"
+		},
+		// This is for method.  
+		methods: {
+			reversed_message: function(){
+				return this.message.split('').reverse().join('')
+			}
+		}
+	})
+	
+	// This is for watch example.  
+	var watch_example = new Vue({
+		el: "#watch_example",
+		data: {
+			firstName: 'Foo',
+			lastName: 'Bar',
+			fullName: 'Foo Bar'
+		},
+		watch: {
+			firstName: function(val){
+				this.fullName = val + ' ' + this.lastName
+			},
+			lastName: function(val){
+				this.fullName = this.firstName + ' ' + this.val
+			}
+		}
+	})
+	
+	// This is for watch replaced by computed.
+	var watch_rb_conputed = new Vue({
+		el: "#watch_rb_computed",
+		data: {
+			firstName: 'Foo',
+			lastName: 'Bar'
+		},
+		computed: {
+			fullName: function(){
+				return this.firstName + ' ' + this.lastName
+			}
+		}
+	})  
+	
+	// This is for settter.
+	var computed_setter = new Vue({
+		el: "#computed_setter", 
+		data: {
+			firstName: "",
+			lastName: ""
+		},
+		computed: {
+			fullName: {
+				get: function(){
+					return this.firstName + " " + this.lastName
+				},
+				set: function(val){
+					var names = val.split(' ')
+					this.firstName = names[0]
+					this.lastName = names[names.length -1]
+				}
+			}
+		}
+	})
+	// set full name.
+	computed_setter.fullName = "Full Name"
+	
+</script>
+</html>
