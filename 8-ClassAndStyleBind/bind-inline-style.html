@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bind Inline Style</title>
+</head>
+<body>
+	<!-- This is for style object syntax -->
+	<div id="styleObjectSyntax">
+		<div v-bind:style="styleObject">
+			Style object syntax.
+		</div>
+	</div>
+	
+	<!-- This is for object array -->
+	<div id="objectArray">
+		<div v-bind:style="[baseStyle, overridingStyles]">
+			Style object array syntax.
+		</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	// This is for style object syntax
+	var styleObjectSyntax = new Vue({
+		el: '#styleObjectSyntax',
+		data: {
+			styleObject: {
+				color: 'red',
+				fontSize: '13px'
+			}
+		}
+	})
+	
+	// This is for object array
+	var objectArray = new Vue({
+		el: "#objectArray",
+		data: {
+			baseStyle: {
+				color: 'blue'
+			},
+			overridingStyles: {
+				fontSize: '20px'
+			}
+		}
+	})
+</script>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bind HTML Class</title>
+</head>
+<body>
+	<!-- This is for v-bind:class -->
+	<div id="bind_class" >
+		<div v-bind:class="{ active: isActive }">v-bind:class</div>
+	</div>
+	
+	<!-- This is for v-bind:class coexist with html class -->
+	<div id="class_coexistence">
+		<div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }" >
+			v-bind:class coexist with html class.
+		</div>
+	</div>
+	
+	<!-- This is for class object -->
+	<div id="class_object">
+		<div v-bind:class="class_object">
+			Class object.
+		</div>
+	</div>
+	
+	<!-- This is for class object and computed properties -->
+	<div id="class_computed">
+		<div v-bind:class="class_object">
+			Class object and computed properties.
+		</div>
+	</div>  
+	
+	<!-- This is for array syntax -->
+	<div id="array_syntax">
+		<div v-bind:class="[active_class, error_class]">
+			Array class.
+		</div>
+	</div>
+	
+	<!-- This is for array syntax with ternary expression -->
+	<div id="array_syntax_te">
+		<div v-bind:class="[isActive ? active_class : '', error_class]">
+			Array class with ternary expression.
+		</div>
+	</div>
+	
+	<!-- This is for array syntax with class object syntax -->
+	<div id="array_syntax_os">
+		<div v-bind:class="[{ active_class: isActive }, error_class]">
+			Array syntax with class object syntax.
+		</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	// This is for v-bind:class  
+	var bind_class = new Vue({
+		el: "#bind_class",
+		data: {
+			isActive: true,
+		}
+		
+	})
+
+	// This is for v-bind:class coexist with html class
+	var class_coexistence = new Vue({
+		el: "#class_coexistence",
+		data: {
+				isActive: false,
+				hasError: true
+		}
+	})
+	
+	// This is for class object
+	var class_object = new Vue({
+		el: "#class_object",
+		data:{
+			class_object: {
+				active: true,
+				'text-danger': false,
+			}
+		}
+	})
+	
+	// This is for class object and computed properties.
+	var class_computed = new Vue({
+		el: "#class_computed",
+		data: {
+			isActive: true,
+			error: null,
+		},
+		computed: {
+			class_object: function(){
+				return {
+					active: this.isActive && !this.error,
+					'text-danger': this.error && this.error.type === 'fatal'
+				}
+			}
+		}
+	})
+	
+	// This is for array class.
+	var array_syntax = new Vue({
+		el: "#array_syntax",
+		data: {
+			active_class: 'active',
+			error_class: 'text-danger'
+		}
+	})
+	
+	// This is for array class with ternary expression.
+	var array_syntax = new Vue({
+		el: "#array_syntax_te",
+		data: {
+			isActive: false,
+			active_class: 'active',
+			error_class: 'text-danger'
+		}
+	})
+	
+	// This is for array class with class object syntax.
+	var array_syntax = new Vue({
+		el: "#array_syntax_os",
+		data: {
+			isActive: true,
+			active_class: 'active',
+			error_class: 'text-danger'
+		}
+	})
+	
+</script>
+</html>
