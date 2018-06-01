@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>v-for</title>
+</head>
+<body>
+	<!-- This is for simple v-for -->
+	<div id="simple">
+		<li v-for="item in items" :key="item.id">{{ item.message }}</li>
+	</div>
+
+	<!-- This is for access parent region -->
+	<div id="parentRegion">
+		<li v-for="(item, index) in items">{{ parentMessage }} - {{ index
+			}} - {{ item.message }}</li>
+	</div>
+
+	<!-- This is for object -->
+	<div id="object">
+		<ul>
+			<li v-for="value in object">{{ value }}</li>
+		</ul>
+	</div>
+
+	<!-- This is for object with key value-->
+	<div id="object_kv">
+		<ul>
+			<li v-for="(value, key) in object">{{ key }} : {{ value }}</li>
+		</ul>
+	</div>
+
+	<!-- This is for object with key value and index -->
+	<div id="object_kvi">
+		<ul>
+			<li v-for="(value, key, index) in object">{{ index }} : {{ key
+				}} : {{ value }}</li>
+		</ul>
+	</div>
+
+	<!-- This is for filter -->
+	<div id="filter">
+		<ul>
+			<li v-for="n in evenNumbers">{{ n }}</li>
+		</ul>
+		<ul>
+			<li v-for="n in odd(numbers)">{{ n }}</li>
+		</ul>
+	</div>
+	
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	// This is for simple v-for
+	var simple = new Vue({
+		el : '#simple',
+		data : {
+			items : [ {
+				message : 'item one'
+			}, {
+				message : 'item two'
+			}, {
+				message : 'item three'
+			}, ],
+		},
+	})
+
+	// This is for access parent region
+	var parentRegion = new Vue({
+		el : '#parentRegion',
+		data : {
+			parentMessage : 'parent',
+			items : [ {
+				message : 'item one'
+			}, {
+				message : 'item two'
+			}, ],
+		},
+
+	})
+
+	// This is for object  
+	var object = new Vue({
+		el : '#object',
+		data : {
+			object : {
+				one : 'one',
+				two : 'two',
+				three : 'three',
+			}
+		},
+	})
+
+	// This is for object with key value 
+	var object = new Vue({
+		el : '#object_kv',
+		data : {
+			object : {
+				one : 'one',
+				two : 'two',
+				three : 'three',
+			}
+		},
+	})
+
+	// This is for object with key value and index
+	var object = new Vue({
+		el : '#object_kvi',
+		data : {
+			object : {
+				one : 'one',
+				two : 'two',
+				three : 'three',
+			}
+		},
+	})
+	
+	// This is for filter and sort
+	var filter = new Vue({
+		el : '#filter',
+		data : {
+			numbers : [ 1, 2, 3, 4, 5, 6 ],
+		},
+		computed : {
+			evenNumbers: function(){
+				return this.numbers.filter(function(number){
+					return number % 2 === 0
+				})
+			},
+		},
+		methods: {
+			odd: function(numbers){
+				return numbers.filter(function (number){
+					return number % 2 != 0
+				})
+			}
+		},
+	})
+	
+	/*
+	// only for array update example.
+	var simple_2 = new Vue({
+		el : '#simple_2',
+		data : {
+			items : [ 'a', 'b', 'c' ],
+		},
+	})
+	simple_2.items[1] = 'd' // not responsive
+	simple_2.items.length = 2 // not responsive  
+
+	Vue.set(simple_2.items, indexOfItem, newValue)
+	simple_2.items.splice(indexOfItem, 1, newValue)
+
+	simple_2.$set(simple_2.items, indexOfItem, newValue)
+
+	simple_2.items.splice(newLength)
+
+	// only for object update example.  
+	var example_3 = new Vue({
+		data : {
+			a : 1
+		}
+	})
+	example_3.a = 2 // This is responsive
+	example_3.b = 2 // This is not responsive  
+
+	var example_4 = new Vue({
+		data : {
+			userProfile : {
+				name : 'Henry'
+			}
+		}
+	})
+
+	Vue.set(example_4.userProfile, 'age', 3)
+	example_4.$set(example_4.userProfile, 'age', 27)
+
+	Object.assign(example_4.userProfile, {
+		age : 27,
+		favoriteColor : 'Vue Green'
+	})
+
+	example_4.userProfile = Object.assign({}, example_4.userProfile, {
+		age : 27,
+		favoriteColor : 'Vue Green'
+	})
+	*/
+
+</script>
+</html>
