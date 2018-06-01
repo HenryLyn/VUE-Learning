@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>v-show</title>
+</head>
+<body>
+	<!-- This is for v-show -->
+	<div id="simple">
+		<div v-show="show">v-show practice</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	// This is for v-show  
+	var simple = new Vue({
+		el: '#simple',
+		data: {
+			show: false,
+		},
+		
+	})
+</script>
+</html>
