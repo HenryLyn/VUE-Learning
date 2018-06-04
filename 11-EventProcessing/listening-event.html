@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Listening Event</title>
+</head>
+<body>
+	<!-- This is a simple on click event -->
+	<div id="example">
+		<button v-on:click="counter += 1">add 1</button>
+		<p>The button above has been clicked {{ counter }} times. </p>
+	</div>
+	
+	<!-- This is for v-on bind a special method -->
+	<div id="bind-method">
+		<button v-on:click="greet">Greet</button>
+	</div>
+	
+	<!-- This is for a method in an inline processor -->
+	<br>
+	<div id='inline-processor'>
+		<button v-on:click="say('hi')">Say hi</button>
+		<button v-on:click="say('what')">Say what</button>
+	</div>
+	<br>
+	
+	<!-- This is for a method in an inline processor with DOM original action -->
+	<div id="ip-dom-event">
+		<button v-on:click="warn('Form cannot be submitted yet.', $event)">
+			Submit
+		</button>
+	</div>
+	
+	
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	/* <!-- This is a simple on click event --> */
+	var example = new Vue({
+		el: '#example',
+		data: {
+			counter: 0,
+		},
+	})
+	
+	/* This for v-on bind a special method */  
+	var bind_method = new Vue({
+		el: '#bind-method',
+		data: {
+			name: 'Vue.js',
+		},
+		// declare a method, named greet in 'methods''
+		methods: {
+			greet: function(event){
+				alert('Hello' + this.name + '!')
+				// if 'event' is a original dom event
+				if(event){
+					alter(event.target.tagName)
+				}
+			}
+		},
+	})
+	
+	/* This is for a method in an inline processor */
+	var inline_processor = new Vue({
+		el: '#inline-processor',
+		data: {
+			say: function(message){
+				alert(message)
+			},
+		},
+	})
+	
+	/* This is for a method in an inline processor with DOM original action */
+	var ip_dom_event = new Vue({
+		el: '#ip-dom-event',
+		methods: {
+			warn: function(message, event){
+				// stop the default operation.
+				if (event){
+					event.preventDefault()
+				}
+				// alert(event)
+				alert(message)
+			}
+		}
+	})
+</script>
+</html>
