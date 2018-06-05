@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Basic example</title>
+</head>
+<body>
+	<!-- This is for basic component practice -->
+	<div id="basic">
+		<button-counter></button-counter>
+	</div>
+	<br>
+	
+	<!-- This is for component reuse -->
+	<div id="component-reuse">
+		<button-counter></button-counter>
+		<button-counter></button-counter>
+		<button-counter></button-counter>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	// This is for register a new component
+	Vue.component('button-counter', {
+		data: function(){
+			return {
+				count: 0
+			}
+		},
+		template: '<button v-on:click="count++">You click me {{ count }} times</button>'
+	})
+	
+	new Vue({
+		el: '#basic'
+	})
+	
+	// This is for component reuse
+	new Vue({
+		el: '#component-reuse'
+	})
+</script>
+</html>
