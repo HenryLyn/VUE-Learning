@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Base Operation</title>
+</head>
+<body>
+	<!-- This is for text -->
+	<div id="text">
+		<input v-model="message" placeholder="edit me">
+		<p>Message is: {{ message }}</p>
+	</div>
+	<br>
+	
+	<!-- This is for text area -->
+	<div id="text-area">
+		<span>Multiline message is: </span>
+		<p style="white-space: pre-line;">{{ message }}</p>
+		<br>
+		<textarea v-model="message" placeholder="add multiple lines"></textarea>
+	</div>
+	<br>
+	
+	<!-- This is for single check box -->
+	<div id="single-checkbox">
+		<input type="checkbox" id="checkbox" v-model="checked">
+		<label for="checkbox">{{ checked }}</label>
+	</div>
+	<br>
+	
+	<!-- This is for multiple check box -->
+	<div id="mulitple-checkbox">
+		<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+		<label for="jack">Jack</label>
+		<input type="checkbox" id="john" value="John" v-model="checkedNames">
+		<label for="John">Jack</label>
+		<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+		<label for="mike">Jack</label>
+		</br>
+		<span>Checked names: {{ checkedNames }}</span>
+	</div>
+	<br>
+	
+	<!-- This is for radio button -->
+	<div id="radio-button">
+		<input type="radio" id="one" value="One" v-model="picked">
+		<label for="one">One</label>
+		<br>
+		<input type="radio" id="two" value="Two" v-model="picked">
+		<label for="two">Two</label>
+		<br>
+		<span>Picked: {{ picked }}</span>
+	</div>
+	<br>
+	
+	<!-- This is for single select box -->
+	<div id="single-selectbox">
+		<select v-model="selected">
+			<option disabled value="">Please choose one</option>
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+		</select>
+		<br>
+		<span>Selected: {{ selected }}</span>
+	</div>
+	<br>
+	
+	<!-- This is for multiple select box -->
+	<div id="multiple-selectbox">
+		<select v-model="selected" multiple style="width: 50px">
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+		</select>
+		<br>
+		<span>Selected: {{ selected }}</span>
+	</div>
+	<br>
+	
+	<!-- This is for dynamic options, v-for -->
+	<div id="dynamic-options">
+		<select v-model="selected">
+			<option disabled value="">Please choose one</option>
+			<option v-for="option in options" v-bind:value="option.value">
+				{{ option.text }}
+			</option>
+		</select>
+		<br>
+		<span>Selected: {{ selected }}</span>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	// This is for text
+	var text = new Vue({
+		el: '#text',
+		data: {
+			message: ''
+		}
+	})
+	
+	// This is for text area
+	var textArea = new Vue({
+		el: '#text-area',
+		data: {
+			message: ''
+		}
+	})
+	
+	// This is for single check box
+	var singleCheckbox = new Vue({
+		el: '#single-checkbox',
+		data: {
+			checked: false
+		}
+	})
+	
+	// This is for multiple check box
+	var multipleCheckbox = new Vue({
+		el: '#mulitple-checkbox',
+		data: {
+			checkedNames: []
+		}
+	})
+	
+	// This is for radio button
+	var radioButton = new Vue({
+		el: '#radio-button',
+		data: {
+			picked: ''
+		}
+	})
+	
+	// This is for single select box
+	var singleSelectbox = new Vue({
+		el: '#single-selectbox',
+		data: {
+			selected: ''
+		}
+	})
+	
+	// This is for multiple select box
+	var singleSelectbox = new Vue({
+		el: '#multiple-selectbox',
+		data: {
+			selected: []
+		}
+	})
+	
+	// This is for dynamic options, v-for
+	var dynamicOptions = new Vue({
+		el: '#dynamic-options',
+		data: {
+			selected: '',
+			options: [
+				{ text: 'A', value: "A" },
+				{ text: 'B', value: "B" },
+				{ text: 'C', value: "C" }
+			]
+		}
+	})
+</script>
+</html>
