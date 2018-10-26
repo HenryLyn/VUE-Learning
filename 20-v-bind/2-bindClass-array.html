@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bind class by array</title>
+</head>
+<body>
+<div id="app">
+    <div :class="[activeCls, errorCls]"></div>
+    <div :class="[isActive ? activeCls : '', errorCls]"></div>
+    <div :class="[{ 'active': isActive }, errorCls]"></div>
+    <div :class="classes"></div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            activeCls: 'active',
+            errorCls: 'error',
+            isActive: true,
+            size: 'large',
+            disabled: true
+        },
+        computed: {
+            classes: function () {
+                return [
+                    'btn',
+                    {
+                        ['btn-' + this.size] : this.size !== '',
+                        ['btn-disabled']: this.disabled
+                    }
+                ]
+            }
+        }
+    })
+</script>
+</html>

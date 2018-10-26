@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bind style, the same as class</title>
+</head>
+<body>
+<div id="app">
+    <div :style="styles">文本</div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            styles: {
+                color: 'red',
+                fontSize: 14 + 'px'
+            }
+        }
+    })
+</script>
+</html>

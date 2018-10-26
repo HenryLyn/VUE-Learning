@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bind class by object</title>
+</head>
+<body>
+<div id="app">
+    <!--语法糖模式 ':' 代表 v-bind-->
+    <div :class="{ 'active': isActive }"></div>
+    <div :class="classes"></div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            isActive: true,
+            error: null
+        },
+        computed: {
+            classes: function () {
+                return {
+                    active: this.isActive && !this.error,
+                    'text-faile': this.error && this.error.type === 'fail'
+                }
+            }
+        }
+    })
+</script>
+</html>
