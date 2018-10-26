@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>if else-if else</title>
+</head>
+<body>
+<div id="app">
+    <!--v-else-if 要紧跟 v-if, v-else 要紧Rli! v-else-if v-if，表达式的值为真时 当前元素／组件及所-->
+    <!--有子节点将被渲染，为假时被移除。-->
+    <p v-if="status === 1">当status为1时显示该行</p>
+    <p v-else-if="status === 2">当status为2时显示该行</p>
+    <p v-else>否则显示该行</p>
+    <template v-if="status === 1">
+        <p>这是一个文本</p>
+        <p>这是一个文本</p>
+        <p>这是一个文本</p>
+    </template>
+    <template v-if="type === 'name'">
+        <label>用户名：</label>
+        <input placeholder="输入用户名">
+    </template>
+    <template v-else>
+        <label>邮箱：</label>
+        <input placeholder="请输入邮箱">
+    </template>
+    <!--语法糖 '@' 即 'v-on'-->
+    <button @click="handleToggleClick">切换输入类型</button>
+    <!--键入内容后，点击切换按钮，虽然 DOM 变了，但是之前在输入框键-->
+    <!--入的内容并没有改变，只是替换了 placeholder 的内容，说明＜input>元素被复用了-->
+    <!--如果你不希望这样做，可以使用 Vue扣提供的 key 属性，它可以让你自己决定是否要复用元-->
+    <!--素， key 的值必须是唯 的，例如：-->
+    <template v-if="type === 'name'">
+        <label>用户名：</label>
+        <input placeholder="输入用户名"  key="name-input">
+    </template>
+    <template v-else >
+        <label>邮箱：</label>
+        <input placeholder="请输入邮箱" key="mail-input">
+    </template>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            status: 1,
+            type: 'name'
+        },
+        methods: {
+            handleToggleClick: function () {
+                this.type = this.type === 'name' ? 'mail' : 'name'
+            }
+        }
+    })
+</script>
+</html>

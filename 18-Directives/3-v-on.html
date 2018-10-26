@@ -8,6 +8,13 @@
 <div id="app">
     <p v-if="show">这是一段文本</p>
     <button v-on:click="handleClose">点击隐藏</button>
+    <!--语法糖'@'代表 v-on-->
+    <div>
+        点击次数： {{ counter }}
+        <button @click="counter ++"> + 1</button>
+        <button @click="handleAdd()">+ 1</button>
+        <button @click="handleAdd(10)">+ 10</button>
+    </div>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -15,11 +22,16 @@
     var app = new Vue ({
         el: "#app",
         data: {
-            show: true
+            show: true,
+            counter: 0
         },
         methods: {
             handleClose: function () {
                 this.show = false
+            },
+            handleAdd: function (count) {
+                count = count || 1
+                this.counter += count
             }
         }
     })

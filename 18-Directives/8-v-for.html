@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-for</title>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="book in books">
+            {{ book.name }}
+        </li>
+    </ul>
+    <!--v- for 的表达式支持一个可选参数作为当前项的索引 例如-->
+    <ul>
+        <li v-for="(book, index) in books">
+            {{ index }} - {{ book.name }}
+        </li>
+    </ul>
+    <!--与v-if 一样， v-for 以用 置标签＜template＞上 将多个元素进行渲染-->
+    <ul>
+        <template v-for="book in books">
+            <li>书名： {{ book.name }}</li>
+            <li>作者： {{ book.author }}</li>
+        </template>
+    </ul>
+    <!--除了数组外 对象的属性也是可以遍历的，例如-->
+    <span v-for="value in user">
+        {{ value }}
+    </span>
+    <!--遍历对象属性时，有两个可选参数，分别是键名和索引：-->
+    <ul>
+        <li v-for="(value, key, index) in user">
+            {{ index }} - {{ key }} - {{ value }}
+        </li>
+    </ul>
+    <!--v-for 还可以迭代整数-->
+    <span v-for="n in 10">
+        {{ n }}
+    </span>
+    <!--过滤与排序-->
+    <ul>
+        <ul>
+            <template v-for="book in filterBooks">
+                <li>书名： {{ book.name }}</li>
+                <li>作者： {{ book.author }}</li>
+            </template>
+        </ul>
+    </ul>
+    <ul>
+        <ul>
+            <template v-for="book in sortedBooks">
+                <li>书名： {{ book.name }}</li>
+                <li>作者： {{ book.author }}</li>
+            </template>
+        </ul>
+    </ul>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            books: [
+                { name: '《Vue.js实战》', author: '梁澈'},
+                { name: '《JavaScript语言精粹》', author: 'Douglas Crockford'},
+                { name: '《JavaScript高级程序设计》', author: 'Nicholas C.Zakas'}
+            ],
+            user: {
+                name: 'Aresn',
+                gender: '男',
+                age: 26
+            }
+        },
+        computed: {
+            filterBooks: function () {
+                return this.books.filter(function (book) {
+                    return book.name.match(/JavaScript/)
+                })
+            },
+            sortedBooks: function () {
+                return this.books.sort(function (a, b) {
+                    return a.name.length < b.name.length
+                })
+            }
+        }
+    })
+</script>
+</html>
