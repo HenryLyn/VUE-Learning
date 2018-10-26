@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <span v-html="link"></span>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            link: '<a href="#">这是一个连接</a>'
+        }
+    })
+</script>
+<!--如果有的时候就是想输出 HTML ，而不是将数据解释后的纯文本，可以使用 v-html:-->
+<!--link 的内容将会被渲染为 个具有点击功能的 标签，而不是纯文本。这里要注意，如果将用-->
+<!--户产生的内容使用 v-html 输出后，有可能导致 xss 攻击，所以要在服务端对用户提交的内容进行-->
+<!--处理， 般可将尖括号“＜ ”转义。-->
+</html>
