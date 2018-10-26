@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dependency</title>
+</head>
+<body>
+<div id="app1"></div>
+<div id="app2">
+    {{ reversedText }}
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: "#app1",
+        data: {
+            text: '123,456'
+        }
+    })
+
+    var app2 = new Vue ({
+        el: '#app2',
+        computed: {
+            // 这里依赖的是实例 appl 的数据 text
+            reversedText: function () {
+                return app.text.split(',').reverse().join(',')
+            }
+        }
+    })
+</script>
+</html>
