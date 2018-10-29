@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>select demo</title>
+</head>
+<body>
+<div id="app">
+    <p>单选</p>
+    <select v-model="selected">
+        <option>html</option>
+        <option value="js">JavaScript</option>
+        <option>css</option>
+    </select>
+    <p>选择的项是： {{ selected }}</p>
+    <p>多选</p>
+    <select v-model="selected1" multiple>
+        <option>html</option>
+        <option value="js">JavaScript</option>
+        <option>css</option>
+    </select>
+    <p>选择的项是： {{ selected1 }}</p>
+    <!--在业务中，＜option＞经常用 -for 动态输出， value text 也是用 v-bind 来动态输出的 例如：-->
+    <p>v-for</p>
+    <select v-model="selected2">
+        <option
+            v-for="option in options"
+            :value="option.value">
+            {{ option.text }}
+        </option>
+    </select>
+    <p>选择的项是： {{ selected2 }}</p>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            selected: 'css',
+            selected1: ['css'],
+            selected2: 'css',
+            options: [
+                {
+                    text: 'HTML',
+                    value: 'html'
+                },
+                {
+                    text: 'JavaScript',
+                    value: 'js'
+                },
+                {
+                    text: 'CSS',
+                    value: 'css'
+                }
+            ]
+        }
+    })
+</script>
+</html>

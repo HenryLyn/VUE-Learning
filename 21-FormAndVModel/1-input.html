@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-model input demo</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="message" placeholder="输入...">
+    <p>输入的内容是：{{ message }}</p>
+    <!--对于文本域 textarea 是同样的用法-->
+    <textarea v-model="text" placeholder="输入..."></textarea>
+    <p>输入的内容是：</p>
+    <p style="white-space: pre;">{{ text }}</p>
+    <!--使用 v-model 时，如果是用中文输入法输入中文，一般在没有选定饲组前，也就是在-->
+    <!--拼音阶段， Vue 是不会更新数据的，当敲下汉字时才会触发史新 如果希望总是实时-->
+    <!--更新，可以用＠input 来替代 v-model 事实上， v-model 也是一个特殊的语法糖，只-->
+    <!--不过它会在不同的表单上智能处理。-->
+    <input type="text" @input="handleInput" placeholder="输入...">
+    <p>输入的内容是：{{ msg }}</p>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            message: '',
+            text: '',
+            msg: ''
+        },
+        methods: {
+            handleInput: function (e) {
+                this.msg = e.target.value
+            }
+        }
+    })
+</script>
+</html>
