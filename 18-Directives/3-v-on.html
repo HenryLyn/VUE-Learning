@@ -15,6 +15,10 @@
         <button @click="handleAdd()">+ 1</button>
         <button @click="handleAdd(10)">+ 10</button>
     </div>
+    <div>
+        <a href="http://www.apple.com" @click="handleClick('禁止打开', $event)">代开链接</a>
+    </div>
+
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -32,8 +36,32 @@
             handleAdd: function (count) {
                 count = count || 1
                 this.counter += count
+            },
+            handleClick: function (message, event) {
+                event.preventDefault()
+                window.alert(message)
             }
         }
     })
 </script>
 </html>
+<!--！一阻止单击事件冒泡-->
+<!--<a @click.stop=”handle " ></a>-->
+<!--〈！一提交事件不再重载页面 一〉-->
+<!--<form @submit.prevent="handle ” ></ form>-->
+<!--！一修饰符可以串联一-->
+<!--<a @click.stop.prevent=” handle ” ></ a>-->
+<!--！一只有修饰符一〉-->
+<!--<form @submit . prevent></form>-->
+<!--！一添加事件侦听器时使用事件捕获模式一〉-->
+<!--<div @click . capture=” handle ” > ... </div>-->
+<!--！一只当事件在该元素本身（而不是子元素） 触发时触发回调一-->
+<!--<div @click.self=” handle ” > ... </div>-->
+<!--！一只触发一次，组件同样适用一〉-->
+<!--<div @click.once=” handle ” > ... </div> -->
+<!--在表单元素上监昕键盘事件时，还可以使用按键修饰符，比如按下具体某个键时才调用方法：-->
+<!--！一只有在 keyCode 13 时调用 vm submit （）一〉-->
+<!--<input @keyup.13 ＝“ subm ”〉-->
+<!--也可以自己配置具体按键：-->
+<!--Vue . config .keyCodes .fl = 112;-->
+<!--／／全局定义后，就可以使用自 keyup. fl -->
