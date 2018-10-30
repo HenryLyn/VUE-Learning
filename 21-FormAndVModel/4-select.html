@@ -30,6 +30,12 @@
         </option>
     </select>
     <p>选择的项是： {{ selected2 }}</p>
+    <p>绑定值：</p>
+    <select v-model="selected3">
+        <option :value="{ number: 123 }">123</option>
+        <option :value="{ number: 456 }">456</option>
+    </select>
+    {{ selected3.number }}
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -53,7 +59,8 @@
                     text: 'CSS',
                     value: 'css'
                 }
-            ]
+            ],
+            selected3: ''
         }
     })
 </script>

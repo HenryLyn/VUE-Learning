@@ -21,6 +21,16 @@
     <label for="css">CSS</label>
     <br />
     <p>选择的项是： {{ checked2 }}</p>
+    <p>绑定值：</p>
+    <input
+        type="checkbox"
+        v-model="toggle"
+        :true-value="v1"
+        :false-value="v2">
+    <label>复选框</label>
+    <p>{{ toggle }}</p>
+    <p>{{ v1 }}</p>
+    <p>{{ v2 }}</p>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -29,7 +39,10 @@
         el: "#app",
         data: {
             checked: true,
-            checked2: ['js']
+            checked2: ['js'],
+            toggle: false,
+            v1: 'a',
+            v2: 'b'
         }
     })
 </script>

@@ -21,6 +21,11 @@
     <label for="css">CSS</label>
     <br />
     <p>选择的项是： {{ picked }}</p>
+    <p>绑定值：</p>
+    <input type="radio" v-model="p" :value="value">
+    <label>单选按钮</label>
+    <p>{{ p }}</p>
+    <p>{{ v }}</p>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -29,7 +34,9 @@
         el: "#app",
         data: {
             picked1: true,
-            picked: 'js'
+            picked: 'js',
+            p: false,
+            v: 123
         }
     })
 </script>
