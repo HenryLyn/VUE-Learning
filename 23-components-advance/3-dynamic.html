@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dynamic component</title>
+</head>
+<body>
+<div id="app">
+    <component :is="currentView"></component>
+    <button @click="handleChangeView('A')">切换到A</button>
+    <button @click="handleChangeView('B')">切换到B</button>
+    <button @click="handleChangeView('C')">切换到C</button>
+    <!--动态地改变 currentView 值就可以动态挂载组件了。也可以直接绑定在组件对象上-->
+    <component :is="cv"></component>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    var Home = {
+        template: '<p>Welcome home!</p>'
+    }
+
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            currentView: 'comA',
+            cv: Home
+        },
+        components: {
+            comA: {
+                template: '<div>组件A</div>'
+            },
+            comB: {
+                template: '<div>组件B</div>'
+            },
+            comC: {
+                template: '<div>组件C</div>'
+            }
+        },
+        methods: {
+            handleChangeView: function (component) {
+                this.currentView = 'com' + component
+            }
+        }
+    })
+</script>
+</html>
