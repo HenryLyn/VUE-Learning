@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$parent & $children</title>
+</head>
+<body>
+<!--尽管 ue 允许这样操作，但在业务中 子组件应该尽可能地避免依赖父组件的数据，更不应-->
+<!--该去主动修改它的数据，因为这样使得父子组件紧藕合，只看父组件，很难理解父组件的状态，因-->
+<!--为它可能被任意组件修改 理想情况下，只有组件自己能修改它的状态。父子组件最好还是通过-->
+<!--props $emit 来通信。-->
+<div id="app">
+    <p>父链</p>
+    {{ message }}
+    <c-1></c-1>
+    <p>子组件索引</p>
+    <button @click="handleRef">通过ref获取子组件实例</button>
+    <c-2 ref="c2"></c-2>
+    <!--$refs ?- (Hll.14- 渲染完成后才填元，并且它是非响应式的 它仅仅作为一个直接访问子-->
+    <!--苦？ 组件的应急方案，应当避免在模板或计算属性中使用础-->
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component('c-1', {
+        template: '<button @click="handleEvent">通过父链直接修改数据</button>',
+        methods: {
+            handleEvent: function () {
+                // 访问到父链后，可以做任何操作，比如直接修改数据
+                this.$parent.message = "来自组件 c-1 的内容"
+            }
+        }
+    })
+
+    Vue.component('c-2', {
+        template: '<div>子组件</div>',
+        data: function () {
+            return {
+                message: '子组件内容'
+            }
+        }
+    })
+
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            message: ''
+        },
+        methods: {
+            handleRef: function () {
+                // 通过 $refs 来访问指定的实例
+                var msg = this.$refs.c2.message
+                console.log(msg)
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>component data transfer</title>
+</head>
+<body>
+<!--如果你了解过 JavaScript 的设计模式一一观察者模式， 定知道 dispatchEvent addEventListener-->
+<!--这两个方法。 Vue 组件也有与之类似的 套模式，子组件用 $emit（）来触发事件，父组件用$on（）来-->
+<!--监昕子组件的事件-->
+<!--父组件也可以直萨在子组件的自定义标签上使用 v-on 来监昕子组件触发的自定义事件，示例-->
+<!--代码如下：-->
+<div id="app">
+    <p>总数： {{ total }}</p>
+    <my-c1
+        @increase="handleGetTotal"
+        @reduce="handleGetTotal"></my-c1>
+    <!--除了用 -on 在组件上监听自定义事件外，也可以监昕 DOM 事件，这时可以用 native 修饰符-->
+    <!--表示监听的是 个原生事件，监听的是该组件的根元素，示例代码如下：-->
+    <!--<my-component v-on:click .native=” handleClick” ></my - component>-->
+    <!--Vue2.x 可以在自定义组件上使用 -model 指令，我们先来看 示例-->
+    <p>使用v-model</p>
+    <p>总数： {{ t2 }}</p>
+    <my-c2 v-model="t2"></my-c2>
+    <!--仍然是点击按钮加 效果 不过这次组件$emit（）的 件名是特殊的 input 在使用组件的父-->
+    <!--级，井没有在＜my-component>上使用＠input= handler”，而是直接用了 -model 定的 个数据-->
+    <!--total 。这也可以称作是 个语法糖，因为上面的示例可以间接地用自定义事件来实现：-->
+    <p>总数： {{ t3 }}</p>
+    <my-c3 @input="handleGetTotal2"></my-c3>
+    <!-- v-model 还可以用来创建自定义的表单输入组件 进行数据双向绑定，例如-->
+    <p>总数： {{ t4 }}</p>
+    <my-c4 v-model="t4"></my-c4>
+    <button @click="handleReduce">-1</button>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component('my-c1', {
+        template: '\
+        <div>\
+            <button @click="handleIncrease">+1</button>\
+            <button @click="handleReduce">-1</button>\
+        </div>',
+        data: function () {
+            return {
+                counter: 0
+            }
+        },
+        methods: {
+            handleIncrease: function () {
+                this.counter++
+                this.$emit('increase', this.counter)
+            },
+            handleReduce: function () {
+                this.counter--
+                this.$emit('reduce', this.counter)
+            }
+        }
+    })
+
+    Vue.component('my-c2', {
+        template: '<button @click="handleClick">+1</button>',
+        data: function () {
+            return {
+                counter: 0
+            }
+        },
+        methods: {
+            handleClick: function () {
+                this.counter++
+                this.$emit('input', this.counter)
+            }
+        }
+    })
+
+    Vue.component('my-c3', {
+        template: '<button @click="handleClick">+1</button>',
+        data: function () {
+            return {
+                counter: 0
+            }
+        },
+        methods: {
+            handleClick: function () {
+                this.counter++
+                this.$emit('input', this.counter)
+            }
+        }
+    })
+
+    Vue.component('my-c4', {
+        props: ['value'],
+        template: '<input :value="value" @input="updateValue">',
+        methods: {
+            updateValue: function (event) {
+                this.$emit('input', event.target.value)
+            }
+        }
+    })
+
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            total: 0,
+            t2: 0,
+            t3: 0,
+            t4: 0
+        },
+        methods: {
+            handleGetTotal: function (total) {
+                this.total = total
+            },
+            handleGetTotal2: function (total) {
+                this.t3 = total
+            },
+            handleReduce: function () {
+                this.t4--
+            }
+        }
+    })
+</script>
+</html>

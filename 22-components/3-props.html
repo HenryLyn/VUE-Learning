@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>props demo</title>
+</head>
+<body>
+<div id="app">
+    <my-component message="来自父组件的数据"></my-component>
+    <my-c2 warning-text="提示信息"></my-c2>
+    <my-c3 :message="parentMessage"></my-c3>
+    <!--注意，如果你要直接传递数字、布尔值、数组、对象，而且不使用 v-bind ，传递的仅-->
+    <!--仅是字符串，尝试下面的示例来对比：-->
+    <my-c4 message="[1,2,3]"></my-c4>
+    <my-c4 :message="[1,2,3]"></my-c4>
+    <!--Vue 2.x Vue l.x 比较大的 个改变就是， Vue2.x 通过 props 传递数据是单向的了， 也就-->
+    <!--父组件数据变化时会传递给子组件，但是反过来不行。而在 ue l.x 里提供了 sync 修饰符来支持双-->
+    <!--向绑定。之所以这样设计，是尽可能将父子组件解稿，避免子组件无意中修改了父组件的状态。-->
+    <!--业务中会经常遇到两种需要改变 prop 情况，一种是父组件传递初始值进来，子组件将它作-->
+    <!--为初始值保存起来，在自己的作用域下可以随意使用和修改。这种情况可以在组件 data 再声明-->
+    <!--一个数据，引用父组件的 prop ，示例代码如下：-->
+    <my-c5 :init-count="1"></my-c5>
+    <!--另一种种情况就是 prop 作为需要被转变的原始值传入。这种情况用计算属性就可以了 示例代-->
+    <!--码如下-->
+    <my-c6 :width="100"></my-c6>
+    <!--我们上面所介绍的 props 项的值都是 个数组，一开始也介绍过，除了数组外，还可以是对-->
+    <!--象，当 prop 需要验证时，就需要对象写法。-->
+    <!--般当你的组件需要提供给别人使用时，推荐都进行数据验证，比如某个数据必须是数字类-->
+    <!--型，如果传入字符串，就会在控制台弹出警告。-->
+    <my-c7 :prop-d="propD"></my-c7>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component('my-component', {
+        props: ['message'],
+        template: '<div>{{ message }}</div>'
+    })
+
+    Vue.component('my-c2', {
+        props: ['warningText'],
+        template: '<div>{{ warningText }}</div>'
+    })
+
+    Vue.component('my-c3', {
+        props: ['message'],
+        template: '<div>{{ message }}</div>'
+    })
+
+    Vue.component('my-c4', {
+        props: ['message'],
+        template: '<div>{{ message.length }}</div>'
+    })
+
+    Vue.component('my-c5', {
+        props: ['initCount'],
+        template: '<div>{{ count }}</div>',
+        data: function () {
+            return {
+                count: this.initCount
+            }
+        }
+    })
+
+    Vue.component('my-c6', {
+        props: ['width'],
+        template: '<div :style="style">组件内容</div>',
+        computed: {
+            style: function () {
+                return {
+                    width: this.width + 'px'
+                }
+            }
+        }
+    })
+
+    // • String
+    // • Number
+    // • Boolean
+    // • Object
+    // • Array
+    // • Function
+    Vue.component('my-c7', {
+        props: {
+            // 必须是数字类型
+            propA: Number,
+            // 必须是字符串或数字类型
+            propB: [String, Number],
+            // 布尔值，如果没有定义，默认是true
+            propC: {
+                type: Boolean,
+                default: true
+            },
+            // 数字，而且是必传
+            propD: {
+                type: Number,
+                required: true
+            },
+            // 如果是数组对象，默认必须是一个函数来返回
+            propE: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            },
+            // 自定义一个验证函数
+            propF: {
+                validator: function (value) {
+                    return value > 10
+                }
+            }
+        },
+        template: '<div>propD: {{ propD }}</div>'
+    })
+
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            parentMessage: '123',
+            propD: 123
+        }
+    })
+</script>
+</html>

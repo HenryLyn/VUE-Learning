@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>component demo</title>
+</head>
+<body>
+<div id="app">
+    <p>全局注册组件：</p>
+    <my-component></my-component>
+    <p>局部注册组件:</p>
+    <child></child>
+    <!--组件的模板在某些情况下会受到 HTML 的限制，比如＜table＞内规定只允许是<tr> <td>-->
+    <!--<th＞等这些表格元素，所以在＜table ＞内直接使用组件是无效的 这种情况下，可以使用特殊的 'is' -->
+    <!--属性来挂载组件-->
+    <p>'is'：</p>
+    <table>
+        <tbody is="my-c2"></tbody>
+    </table>
+    <!--tbod 在渲染时 会被替换为组件的内容。常见的限制元素还有＜ul＞、＜ol＞、＜select>-->
+    <p>template使用数据</p>
+    <my-c3></my-c3>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Vue.component('my-component', {
+        template: '<div> 这是组件的内容</div>'
+    })
+
+    var childComponent = {
+        template: '<div>这是局部注册组件</div>'
+    }
+
+    Vue.component('my-c2', {
+        template: '<div>这是组件的内容</div>'
+    })
+
+    Vue.component('my-c3', {
+        template: '<div> {{ message }}</div>',
+        data: function () {
+            return {
+                message: '组件内容'
+            }
+        }
+    })
+
+    var app = new Vue ({
+        el: "#app",
+        data: {
+
+        },
+        components: {
+            'child': childComponent
+        }
+    })
+</script>
+</html>

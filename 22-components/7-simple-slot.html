@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>simple slot demo</title>
+</head>
+<body>
+<div id="app">
+    <!--单个slot-->
+    <child-component>
+        <p>分发的内容</p>
+        <p>更多分发的内容</p>
+    </child-component>
+    <!--具名slot-->
+    <cc-2>
+        <h2 slot="header">标题</h2>
+        <p>正文内容</p>
+        <p>更多的正文内容</p>
+        <div slot="footer">底部消息</div>
+    </cc-2>
+    <!--作用域插槽-->
+    <cc-3>
+        <template scope="props">
+            <p>来自父组件的内容</p>
+            <p>{{ props.msg }}</p>
+        </template>
+    </cc-3>
+    <!--作用域插槽更具代表性的用例是列表组件，允许组件自定义应该如何渲染列表每 项。示例-->
+    <!--代码如下：-->
+    <cc-4 :books="books">
+        <!--作用域插槽也可以是具名的slot-->
+        <template slot="book" scope="props">
+            <li>{{ props.bookName }}</li>
+        </template>
+    </cc-4>
+    <!--如果你仔细揣摩上面的用法，你可能会产生这样的疑问 我直接在父组件用 v-for 不就好了吗，-->
+    <!--为什么还要绕 在子组件里面循环呢？的确 如果只是针对上面的示例，这样写是多此 举的。-->
+    <!--此例的用意主要是介绍作用域插槽的用法 并没有加入使用场景 而作用域插槽的使用场景就是既-->
+    <!--可以复用子组件的 slot ，又可以使 lot 内容不一致。如果上例还在其他组件内使用，＜Ii ＞的内容渲-->
+    <!--染权是由使用者掌握的，而数据却可以通过临时变量（比如 props ）从子组件内获取。-->
+    <p>获取slot</p>
+    <cc-5>
+        <h2 slot="header">标题</h2>
+        <p>正文内容</p>
+        <p>更多正文内容</p>
+        <div slot="footer">底部信息</div>
+    </cc-5>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Vue.component('child-component', {
+        template: '' +
+            '<div>' +
+            '   <slot>' +
+            '       <p>如果父组件没有插入内容，我将作为默认出现</p>' +
+            '   </slot>' +
+            '</div>'
+    })
+
+    Vue.component('cc-2', {
+        template: '' +
+            '<div class="container">' +
+            '   <div class="header">' +
+            '       <slot name="header"></slot>' +
+            '   </div>' +
+            '   <div class="main">' +
+            '       <slot></slot>' +
+            '   </div>' +
+            '   <div class="footer">' +
+            '       <slot name="footer"></slot>' +
+            '   </div>' +
+            '</div>'
+    })
+
+    Vue.component('cc-3', {
+        template: '' +
+            '<div class="container">' +
+            '   <slot msg="来自子组件的内容"></slot>' +
+            '</div>'
+    })
+
+    Vue.component('cc-4', {
+        props: {
+            books: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            }
+        },
+        template: '' +
+            '<ul>' +
+            '   <slot name="book"' +
+            '       v-for="book in books"' +
+            '       :book-name="book.name"></slot>' +
+                // 这里也可以写默认slot内容
+            '</ul>'
+    })
+
+    Vue.component('cc-5', {
+        template: '' +
+            '<div class="container">' +
+            '   <div class="header">' +
+            '       <slot name="header"></slot>' +
+            '   </div>' +
+            '   <div class="main">' +
+            '      <slot></slot>' +
+            '   </div>' +
+            '   <div class="footer">' +
+            '       <slot name="footer"></slot>' +
+            '   </div>' +
+            '</div>',
+        mounted: function () {
+            var header = this.$slots.header
+            var main = this.$slots.default
+            var footer = this.$slots.footer
+            console.log(footer)
+            console.log(footer[0].elm.innerHTML)
+        }
+    })
+
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            showChild: true,
+            books: [
+                {
+                    name: '《vue.js 实战》'
+                },
+                {
+                    name: '《JavaScript 语言精粹》'
+                },
+                {
+                    name: '《JavaScript 高级程序设计》'
+                }
+            ]
+        }
+    })
+</script>
+</html>
