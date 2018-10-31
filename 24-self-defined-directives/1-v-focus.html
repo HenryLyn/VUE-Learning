@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-focus</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-focus>
+    <!--可以看到 ，打开这个页面 input 输入框就自动获得了焦点 ，成为可输入状态-->
+    <!--每个钩子函数都有几个参数可用，比如上面我们用到了 el 。它们的含义如下：-->
+    <!--• el 指令所绑定的元素，可以用来直接操作 DOM-->
+    <!--• binding 一个对象，包含以下属性-->
+    <!--   name 指令名，不包括 前缀。-->
+    <!--   value 指令的绑定值，例如 v-my-directive＝叮＋ ”， value 的值是，-->
+    <!--   oldValue 指令绑定的前一个值，仅在 update componentUpdated 钩子中可用．无论-->
+    <!--值是否改变都可用-->
+    <!--   expression 绑定值的字符串形式 例如 v-my-directive=" 1 + ”， expression 的值是” +I”.-->
+    <!--》缸 传给指令的参数。例如 v-my-directive ：“o, arg 的值是 foo-->
+    <!--   modifiers 一个包含修饰符的对象 例如 v-my-directive.foo.bar ，修饰符对象 modifiers-->
+    <!--的值是｛ foo: true, bar: true ｝。-->
+    <!--• vnode Vue 编译生成的虚拟节点，在进阶篇中介绍-->
+    <!--• oldVnode 上一个虚拟节点仅在 update componentUpdated 钩子中可用-->
+    <div v-test:msg.a.b="message"></div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Vue.directive('focus', {
+        inserted: function (el) {
+            // 聚焦元素
+            el.focus()
+        }
+    })
+
+    Vue.directive('test', {
+        bind: function (el, binding, vnode) {
+            var keys = []
+            for (var i in vnode) {
+                keys.push(i)
+            }
+            el.innerHTML =
+                'name: ' + binding.name + '<br />' +
+                'value: ' + binding.value + '<br />' +
+                 'expression: ' + binding.expression + '<br />' +
+                'argument: ' + binding.arg + '<br />' +
+                'modifiers: ' + JSON.stringify(binding.modifiers) + '<br />' +
+                'vnode keys: ' + keys.join(', ') + '<br />'
+        }
+    })
+
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            message: 'some text'
+        }
+    })
+</script>
+</html>
