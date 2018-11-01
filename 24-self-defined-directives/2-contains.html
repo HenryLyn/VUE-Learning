@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contains</title>
+</head>
+<body>
+<div id="parent">
+    父元素
+    <div id="children">子元素</div>
+</div>
+</body>
+<script>
+    var A = document.getElementById('parent')
+    var B = document.getElementById('children')
+    console.log(A.contains(B))
+    console.log(B.contains(A))
+</script>
+</html>
