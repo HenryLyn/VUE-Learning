@@ -1,0 +1,5 @@
+使用 Render 函数开发可排序的表格组件
+一个标准的表格由＜table＞、＜thead＞、＜tbody> <th＞、＜td＞等元素组成。
+表格组件的所有内容（表头和行数据）由两 prop 构成 columns data 。两者都是如且， columns
+用来描述每列的信息 井渲染在表头＜thead> ，可以指定某一列是否需要排序： data 是每一行的
+数据，由 columns 决定每一行里各列的顺序。
