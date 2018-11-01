@@ -22,6 +22,9 @@
     <!--• vnode Vue 编译生成的虚拟节点，在进阶篇中介绍-->
     <!--• oldVnode 上一个虚拟节点仅在 update componentUpdated 钩子中可用-->
     <div v-test:msg.a.b="message"></div>
+    <!--如果需要多个值 自定义指令也可以传入 JavaScript 对象字面量 只要是合法类型的-->
+    <!--Ja aScript 表达式都是可以的 示例代码如下-->
+    <div v-test2="{msg: 'hello', name: 'Aresn'}"></div>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -42,10 +45,17 @@
             el.innerHTML =
                 'name: ' + binding.name + '<br />' +
                 'value: ' + binding.value + '<br />' +
-                 'expression: ' + binding.expression + '<br />' +
+                'expression: ' + binding.expression + '<br />' +
                 'argument: ' + binding.arg + '<br />' +
                 'modifiers: ' + JSON.stringify(binding.modifiers) + '<br />' +
                 'vnode keys: ' + keys.join(', ') + '<br />'
+        }
+    })
+
+    Vue.directive('test2', {
+        bind: function (el, binding, vnode) {
+            console.log(binding.value.msg)
+            console.log(binding.value.name)
         }
     })
 
