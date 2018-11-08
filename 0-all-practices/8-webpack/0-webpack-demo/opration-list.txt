@@ -1,0 +1,32 @@
+webpack:
+1. npm init
+2. npm install webpack --save-dev
+3. npm install webpack-dev-server --save-dev
+4. npm install webpack-cli --save-dev
+5. npm install css-loader --save-dev
+6. npm install style-loader --save-dev
+7. npm install extract-text-webpack-plugin@next --save-dev // webpack4 弃用
+8. npm install mini-css-extract-plugin --save-dev // webpack4 替代选项 7
+vue:
+1. npm install --save vue
+2. npm install --save-dev vue-loader
+3. npm install --save-dev vue-style-loader
+4. npm install --save-dev vue-template-compiler
+5. npm install --save-dev vue-hot-reload-api
+
+ES6:
+1. npm install --save-dev babel
+2. npm install --save-dev babel-core
+3. npm install --save-dev babel-loader@7
+4. npm install --save-dev babel-plugin-transform-runtime
+5. npm install --save-dev babel-preset-es2015
+6. npm install --save-dev babel-runtime
+
+支持图片，字体:
+1. npm install --save-dev url-loader
+2. npm install --save-dev file-loader
+
+打包:
+1. npm install --save-dev webpack-merge
+2. npm install --save-dev html-webpack-plugin
+3. npm install --save-dev uglifyjs-webpack-plugin
